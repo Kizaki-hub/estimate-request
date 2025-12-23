@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>CANS｜物件一覧</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#f7f7f7;padding:30px}
+.card{max-width:720px;margin:auto;background:#fff;padding:20px;border-radius:12px}
+h1{margin-top:0}
+ul{list-style:none;padding:0}
+li{padding:12px;border-bottom:1px solid #eee;cursor:pointer}
+li:hover{background:#f0f6ff}
+.addr{font-size:13px;color:#666}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>CANS｜物件一覧</h1>
+  <ul>
+    <li onclick="go('〇〇マンション101','横浜市中区〜')">
+      〇〇マンション101
+      <div class="addr">横浜市中区〜</div>
+    </li>
+    <li onclick="go('△△アパート202','横浜市西区〜')">
+      △△アパート202
+      <div class="addr">横浜市西区〜</div>
+    </li>
+  </ul>
+</div>
+
+<script>
+function go(name,addr){
+  location.href = 'estimate.html?name=' + encodeURIComponent(name)
+    + '&addr=' + encodeURIComponent(addr);
+}
+</script>
+
+</body>
+</html>
