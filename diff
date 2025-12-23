@@ -1,0 +1,82 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>見積依頼ポータル</title>
+<style>
+  body{font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f7f7f7;margin:0;padding:40px}
+  .card{max-width:720px;margin:0 auto;background:#fff;border-radius:14px;padding:24px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  h1{text-align:center;margin:0 0 10px}
+  p{color:#555;font-size:14px;text-align:center}
+  .field{margin:16px 0}
+  label{font-weight:600;font-size:14px}
+  input{width:100%;padding:10px;margin-top:6px;border:1px solid #ccc;border-radius:8px;font-size:14px}
+  button{padding:10px 18px;border-radius:8px;border:none;background:#0b74de;color:#fff;font-size:15px;cursor:pointer}
+  ul{list-style:none;padding:0;margin-top:20px}
+  li{padding:10px;border-bottom:1px solid #eee;cursor:pointer}
+  li:hover{background:#f0f6ff}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>見積依頼ポータル</h1>
+  <p>業者IDとパスワードを入力してください</p>
+
+  <div class="field">
+    <label>業者ID</label>
+    <input id="vendorId" placeholder="例：CNS / RLF / OWN">
+  </div>
+
+  <div class="field">
+    <label>パスワード</label>
+    <input id="password" type="password">
+  </div>
+
+  <button onclick="login()">ログイン</button>
+
+  <ul id="vendorList" class="hidden"></ul>
+</div>
+
+<script>
+const vendors = [
+  {id:'CNS', name:'CANS', password:'cns-pass', path:'vendor/cns/'},
+  {id:'RLF', name:'ReLIFE', password:'rlf-pass', path:'vendor/rlf/'}
+];
+
+const OWNER_ID = 'OWN';
+const OWNER_PASS = 'own-pass';
+
+function login(){
+  const id = vendorId.value.trim().toUpperCase();
+  const pw = password.value;
+
+  const list = document.getElementById('vendorList');
+  list.innerHTML = '';
+  list.classList.add('hidden');
+
+  if(id === OWNER_ID && pw === OWNER_PASS){
+    vendors.forEach(v=>{
+      const li = document.createElement('li');
+      li.textContent = v.name;
+      li.onclick = ()=> location.href = v.path;
+      list.appendChild(li);
+    });
+    list.classList.remove('hidden');
+    return;
+  }
+
+  const vendor = vendors.find(v=>v.id === id && v.password === pw);
+  if(vendor){
+    location.href = vendor.path;
+  }else{
+    alert('IDまたはパスワードが違います');
+  }
+}
+</script>
+
+</body>
+</html>
